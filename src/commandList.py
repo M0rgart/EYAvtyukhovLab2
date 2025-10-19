@@ -1,1 +1,1 @@
-commands = {'exit', 'help', 'ls', 'cd'}
+commands = {'exit', 'help', 'ls', 'cd', 'cat', 'cp', 'mv', 'rm'}
