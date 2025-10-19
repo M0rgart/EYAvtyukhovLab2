@@ -28,13 +28,10 @@ def main() -> None:
                 abs_path = cd(abs_path, user_input)
 
             case _:
-                exit("Unknown command")
+                print("Unknown command")
 
 
-        if os.path.exists(abs_path):
-            print(abs_path, end=' ')
-        else:
-            exit("File or directory does not exist")
+        print(abs_path, end=' ')
 
 
 if __name__ == "__main__":
