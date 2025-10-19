@@ -1,0 +1,1 @@
+commands = {'exit', 'help', 'ls', 'cd'}

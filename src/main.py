@@ -1,20 +1,26 @@
-from src.power import power_function
-from src.constants import SAMPLE_CONSTANT
+import sys
+import os
+from commandList import commands
 
 
 def main() -> None:
-    """
-    Обязательнная составляющая программ, которые сдаются. Является точкой входа в приложение
-    :return: Данная функция ничего не возвращает
-    """
+    print("Для завершения ввода напишите exit")
+    print("Чтобы увидеть список команд напишите help")
+    for user_input in sys.stdin:
 
-    target, degree = map(int, input("Введите два числа разделенные пробелом: ").split(" "))
+        user_input = user_input.split()
+        user_command = user_input.pop(0)
+        if user_command not in commands:
+            exit("Unknown command")
 
-    result = power_function(target=target, power=degree)
+        if user_command == "exit":
+            break
+        elif user_command == "help":
+            print(commands)
+        elif user_command == "ls":
+            ls(user_input)
 
-    print(result)
 
-    print(SAMPLE_CONSTANT)
 
 if __name__ == "__main__":
     main()
