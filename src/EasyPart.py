@@ -62,3 +62,20 @@ def cd(abs_path, user_input):
     else:
         print("File or directory does not exist")
         return old_path
+
+def cat(abs_path, user_input):
+    try:
+        user_input = ' '.join(user_input)
+        if user_input[1:2] == ':':
+            abs_path = user_input
+        else:
+            abs_path = abs_path + "\\" + user_input
+        file = open(abs_path, 'r', encoding='utf-8')
+        lines = [line[:-1] for line in file.readlines()]
+        for num_line in range(len(lines)):
+            print(f"{num_line+1}: {lines[num_line]}")
+        file.close()
+    except (FileNotFoundError):
+        print("File not found")
+    except (PermissionError):
+        print("Permission error")

@@ -1,7 +1,7 @@
 import sys
 import os
 from commandList import commands
-from EasyPart import ls, cd
+from EasyPart import ls, cd, cat
 
 
 def main() -> None:
@@ -27,10 +27,14 @@ def main() -> None:
             case "cd":
                 abs_path = cd(abs_path, user_input)
 
+            case "cat":
+                cat(abs_path, user_input)
+
             case _:
                 print("Unknown command")
 
 
+        abs_path = os.path.normpath(abs_path)
         print(abs_path, end=' ')
 
 
