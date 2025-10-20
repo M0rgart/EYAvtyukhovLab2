@@ -1,7 +1,7 @@
 import sys
 import os
-from commandList import commands
-from EasyPart import ls, cd, cat
+import EasyPart
+import commandList
 
 
 def main() -> None:
@@ -16,19 +16,19 @@ def main() -> None:
 
         match user_command:
             case "help":
-                print(commands)
+                print(commandList.commands)
 
             case "exit":
                 break
 
             case "ls":
-                ls(abs_path, user_input)
+                EasyPart.ls(abs_path, user_input)
 
             case "cd":
-                abs_path = cd(abs_path, user_input)
+                EasyPart.cd(abs_path, user_input)
 
             case "cat":
-                cat(abs_path, user_input)
+                EasyPart.cat(abs_path, user_input)
 
             case _:
                 print("Unknown command")
