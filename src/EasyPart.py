@@ -114,5 +114,5 @@ def cp(abs_path, user_input):
         print("File not found")
     except (ValueError):
         print("Wrong number of arguments")
-    except:
-        print("Unexpected error")
+    except (shutil.Error):
+        print("Shutil error")
