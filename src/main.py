@@ -25,10 +25,13 @@ def main() -> None:
                 EasyPart.ls(abs_path, user_input)
 
             case "cd":
-                EasyPart.cd(abs_path, user_input)
+                abs_path = EasyPart.cd(abs_path, user_input)
 
             case "cat":
                 EasyPart.cat(abs_path, user_input)
+
+            case 'cp':
+                EasyPart.cp(abs_path, user_input)
 
             case _:
                 print("Unknown command")

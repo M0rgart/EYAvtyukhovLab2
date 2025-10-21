@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+import shutil
 
 
 def ls(abs_path, user_input):
@@ -42,6 +43,8 @@ def ls(abs_path, user_input):
         print("File not found")
     except (OSError):
         print("OS error (try 'ls C:\\')")
+    except:
+        print("Unexpected error")
 
 
 def cd(abs_path, user_input):
@@ -79,3 +82,37 @@ def cat(abs_path, user_input):
         print("File not found")
     except (PermissionError):
         print("Permission error")
+    except (UnicodeDecodeError):
+        print("Unicode decode error")
+    except:
+        print("Unexpected error")
+
+
+def cp(abs_path, user_input):
+    try:
+        user_input = ' '.join(user_input)
+        operation = user_input[0:2] if user_input[0] == '-' else None
+        user_input = user_input[3:] if operation else user_input
+
+        if '"' in user_input:
+            file_path, new_path = user_input.replace('" ', '"').split('"')[1:]
+        else:
+            file_path, new_path = user_input.split(' ')
+
+        file_path = file_path if file_path[1:2] == ':' else abs_path + '\\' + file_path
+        new_path = new_path if new_path[1:2] == ':' else abs_path + '\\' + new_path
+
+        if operation == None:
+            shutil.copy(file_path, new_path)
+        elif operation == '-r':
+            shutil.copytree(file_path, new_path, dirs_exist_ok=True)
+        else:
+            print("Unknown operation")
+    except (PermissionError):
+        print("Permission error or add '-r'")
+    except (FileNotFoundError):
+        print("File not found")
+    except (ValueError):
+        print("Wrong number of arguments")
+    except:
+        print("Unexpected error")
