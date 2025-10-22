@@ -1,10 +1,10 @@
-import supFunctions
+import runFunction
 
 
 def main() -> None:
     print("Для завершения ввода напишите exit")
     print("Чтобы увидеть список команд напишите help")
-    supFunctions.run()
+    runFunction.run()
 
 
 if __name__ == "__main__":
