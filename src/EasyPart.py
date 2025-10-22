@@ -147,7 +147,31 @@ def mv(abs_path, user_input):
         print("Unexpected error")
 
 def rm(abs_path, user_input):
-    pass
+    try:
+        user_input = ' '.join(user_input)
+        operation = user_input[0:2] if user_input[0] == '-' else None
+        user_input = user_input[3:] if operation else user_input
+
+        file_path = user_input if user_input[1:2] == ':' else abs_path + '\\' + user_input
+
+        if operation == None:
+            os.remove(file_path)
+        else:
+            if operation == '-r':
+                print(f"Delete the {file_path}? y/n")
+                if input() == 'y':
+                    shutil.rmtree(file_path)
+                    print(f'{file_path} deleted')
+                else:
+                    print(f'{file_path} not deleted')
+            else:
+                print("Unknown operation")
+    except (PermissionError):
+        print("Permission error")
+    except (FileNotFoundError):
+        print("File not found")
+    except (ValueError):
+        print("Wrong number of arguments")
 
 if __name__ == "__main__":
     main.main()
