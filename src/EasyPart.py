@@ -172,6 +172,8 @@ def rm(abs_path, user_input):
         print("File not found")
     except (ValueError):
         print("Wrong number of arguments")
+    except (IndexError):
+        print("Wrong number of arguments")
 
 if __name__ == "__main__":
     main.main()
