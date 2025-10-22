@@ -103,7 +103,7 @@ def cp(abs_path, user_input):
         new_path = new_path if new_path[1:2] == ':' else abs_path + '\\' + new_path
 
         if operation == None:
-            shutil.copy(file_path, new_path)
+            shutil.copy2(file_path, new_path)
         elif operation == '-r':
             shutil.copytree(file_path, new_path, dirs_exist_ok=True)
         else:
@@ -116,3 +116,31 @@ def cp(abs_path, user_input):
         print("Wrong number of arguments")
     except (shutil.Error):
         print("Shutil error")
+
+
+def mv(abs_path, user_input):
+    try:
+        user_input = ' '.join(user_input)
+
+        if '"' in user_input:
+            file_path, new_path = user_input.replace('" ', '"').split('"')[1:]
+        else:
+            file_path, new_path = user_input.split(' ')
+
+        file_path = file_path if file_path[1:2] == ':' else abs_path + '\\' + file_path
+        new_path = new_path if new_path[1:2] == ':' else abs_path + '\\' + new_path
+        if '.' not in new_path:
+            file_name = file_path.split('\\')[-1]
+            new_path += '\\' + file_name
+
+        os.replace(file_path, new_path)
+    except (FileNotFoundError):
+        print("File not found")
+    except (PermissionError):
+        print("Permission error")
+    except (ValueError):
+        print("Wrong number of arguments")
+    except (os.error):
+        print("OSError")
+    except:
+        print("Unexpected error")

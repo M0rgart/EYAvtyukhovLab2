@@ -33,6 +33,9 @@ def main() -> None:
             case 'cp':
                 EasyPart.cp(abs_path, user_input)
 
+            case 'mv':
+                EasyPart.mv(abs_path, user_input)
+
             case _:
                 print("Unknown command")
 
