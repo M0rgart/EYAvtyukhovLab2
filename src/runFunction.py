@@ -4,7 +4,7 @@ import sys
 import os
 
 def run():
-    abs_path = os.path.abspath(__file__)[:-20]
+    abs_path = os.path.abspath(__file__)[:-19]
     commands = {'exit', 'help', 'ls', 'cd', 'cat', 'cp', 'mv', 'rm'}
 
     print(abs_path+'\\ ', end='')
