@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 import shutil
+import src.main as main
 
 
 def ls(abs_path, user_input):
@@ -144,3 +145,6 @@ def mv(abs_path, user_input):
         print("OSError")
     except:
         print("Unexpected error")
+
+if __name__ == "__main__":
+    main.main()
