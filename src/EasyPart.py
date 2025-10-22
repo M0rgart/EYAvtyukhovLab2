@@ -174,6 +174,12 @@ def rm(abs_path, user_input):
         print("Wrong number of arguments")
     except (IndexError):
         print("Wrong number of arguments")
+    except (OSError):
+        print("OSError")
+    except (shutil.Error):
+        print("Shutil error")
+    except:
+        print("Unexpected error")
 
 if __name__ == "__main__":
     main.main()
