@@ -5,7 +5,7 @@ import os
 
 def run():
     abs_path = os.path.abspath(__file__)[:-20]
-    commands = {'exit', 'help', 'ls', 'cd', 'cat', 'cp', 'mv'}
+    commands = {'exit', 'help', 'ls', 'cd', 'cat', 'cp', 'mv', 'rm'}
 
     print(abs_path+'\\ ', end='')
 
@@ -35,6 +35,9 @@ def run():
 
             case 'mv':
                 EasyPart.mv(abs_path, user_input)
+
+            case 'rm':
+                EasyPart.rm(abs_path, user_input)
 
             case _:
                 print("Unknown command")

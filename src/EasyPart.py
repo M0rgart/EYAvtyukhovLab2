@@ -146,5 +146,8 @@ def mv(abs_path, user_input):
     except:
         print("Unexpected error")
 
+def rm(abs_path, user_input):
+    pass
+
 if __name__ == "__main__":
     main.main()
