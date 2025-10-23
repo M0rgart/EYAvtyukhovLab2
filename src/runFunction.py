@@ -29,10 +29,10 @@ def run():
 
             case "ls":
                 ans = EasyPart.ls(abs_path, user_input)
-                print(ans)
                 if ans == None:
                     print(f"[{str(datetime.datetime.now())[:-7]}] {user_command} {user_input}", file=shell)
                 else:
+                    print(ans)
                     print(f"[{str(datetime.datetime.now())[:-7]}] {ans}", file=shell)
 
             case "cd":
