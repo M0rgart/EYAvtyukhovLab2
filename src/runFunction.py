@@ -77,7 +77,7 @@ def run():
 
             case _:
                 print("ERROR: Unknown command")
-                print(f"[{str(datetime.datetime.now())[:-7]}] ERROR: Unknown command")
+                print(f"[{str(datetime.datetime.now())[:-7]}] ERROR: Unknown command", file=shell)
 
 
         abs_path = os.path.normpath(abs_path)
