@@ -33,19 +33,21 @@ def ls(abs_path, user_input):
                     else:
                         file_info += '-'
                 print(file_info)
+            return None
         elif operation == None:
             for file in directory:
                 print(f"{file}")
+            return None
         else:
-            print("Unknown operation")
+            return "ERROR: Unknown operation"
     except (PermissionError):
-        print("Permission error")
+        return "ERROR: Permission error"
     except (FileNotFoundError):
-        print("File not found")
+        return "ERROR: File not found"
     except (OSError):
-        print("OS error (try 'ls C:\\')")
+        return "ERROR: OS error (try 'ls C:\\')"
     except:
-        print("Unexpected error")
+        return "ERROR: Unexpected error"
 
 
 def cd(abs_path, user_input):
@@ -62,10 +64,10 @@ def cd(abs_path, user_input):
             abs_path = abs_path + "\\" + user_input
 
     if os.path.exists(abs_path):
-        return abs_path + '\\'
+        return None, abs_path + '\\'
     else:
-        print("File or directory does not exist")
-        return old_path
+        return "ERROR: File or directory does not exist", old_path
+
 
 def cat(abs_path, user_input):
     try:
@@ -79,14 +81,15 @@ def cat(abs_path, user_input):
         for num_line in range(len(lines)):
             print(f"{num_line+1}: {lines[num_line]}")
         file.close()
+        return None
     except (FileNotFoundError):
-        print("File not found")
+        return "ERROR: File not found"
     except (PermissionError):
-        print("Permission error")
+        return "ERROR: Permission error"
     except (UnicodeDecodeError):
-        print("Unicode decode error")
+        return "ERROR: Unicode decode error"
     except:
-        print("Unexpected error")
+        return "ERROR: Unexpected error"
 
 
 def cp(abs_path, user_input):
@@ -105,18 +108,20 @@ def cp(abs_path, user_input):
 
         if operation == None:
             shutil.copy2(file_path, new_path)
+            return None
         elif operation == '-r':
             shutil.copytree(file_path, new_path, dirs_exist_ok=True)
+            return None
         else:
-            print("Unknown operation")
+            return "ERROR: Unknown operation"
     except (PermissionError):
-        print("Permission error or add '-r'")
+        return "ERROR: Permission error or add '-r'"
     except (FileNotFoundError):
-        print("File not found")
+        return "ERROR: File not found"
     except (ValueError):
-        print("Wrong number of arguments")
+        return "ERROR: Wrong number of arguments"
     except (shutil.Error):
-        print("Shutil error")
+        return "ERROR: Shutil error"
 
 
 def mv(abs_path, user_input):
@@ -135,16 +140,19 @@ def mv(abs_path, user_input):
             new_path += '\\' + file_name
 
         os.replace(file_path, new_path)
+        return None
+
     except (FileNotFoundError):
-        print("File not found")
+        return "ERROR: File not found"
     except (PermissionError):
-        print("Permission error")
+        return "ERROR: Permission error"
     except (ValueError):
-        print("Wrong number of arguments")
+        return "ERROR: Wrong number of arguments"
     except (os.error):
-        print("OSError")
+        return "ERROR: OSError"
     except:
-        print("Unexpected error")
+        return "ERROR: Unexpected error"
+
 
 def rm(abs_path, user_input):
     try:
@@ -156,30 +164,34 @@ def rm(abs_path, user_input):
 
         if operation == None:
             os.remove(file_path)
+            return None
         else:
             if operation == '-r':
                 print(f"Delete the {file_path}? y/n")
                 if input() == 'y':
                     shutil.rmtree(file_path)
                     print(f'{file_path} deleted')
+                    return None
                 else:
                     print(f'{file_path} not deleted')
+                    return None
             else:
-                print("Unknown operation")
+                return "ERROR: Unknown operation"
     except (PermissionError):
-        print("Permission error")
+        return "ERROR: Permission rror"
     except (FileNotFoundError):
-        print("File not found")
+        return "ERROR: File not found"
     except (ValueError):
-        print("Wrong number of arguments")
+        return "ERROR: Wrong number of arguments"
     except (IndexError):
-        print("Wrong number of arguments")
+        return "ERROR: Wrong number of arguments"
     except (OSError):
-        print("OSError")
+        return "ERROR: OSError"
     except (shutil.Error):
-        print("Shutil error")
+        return "ERROR: Shutil error"
     except:
-        print("Unexpected error")
+        return "ERROR: Unexpected error"
+
 
 if __name__ == "__main__":
     main.main()
