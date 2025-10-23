@@ -16,7 +16,7 @@ def run():
         user_input = user_input.split()
         user_command = user_input.pop(0)
 
-        shell = open('shell.log', 'a')
+        shell = open('shell.log.txt', 'a')
 
         match user_command:
             case "help":
