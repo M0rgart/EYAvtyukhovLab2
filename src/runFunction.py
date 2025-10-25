@@ -1,5 +1,5 @@
 import src.main as main
-import EasyPart
+import EasyPart, zip_tar
 import sys
 import os
 import logging
@@ -13,6 +13,9 @@ def run():
 
 
     for user_input in sys.stdin:
+        if ' .\n' == user_input[-3:]:
+            user_input = user_input[:-2] + abs_path
+
         user_input = user_input.split()
         user_command = user_input.pop(0)
 
@@ -70,6 +73,14 @@ def run():
 
             case 'rm':
                 ans = EasyPart.rm(abs_path, user_input)
+                if ans == None:
+                    logging.info(f"{user_command} {user_input}")
+                else:
+                    print(ans)
+                    logging.error(ans)
+
+            case 'zip':
+                ans = zip_tar.zip(abs_path, user_input)
                 if ans == None:
                     logging.info(f"{user_command} {user_input}")
                 else:
