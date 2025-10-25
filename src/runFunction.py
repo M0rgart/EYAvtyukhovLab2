@@ -3,6 +3,7 @@ import EasyPart
 import sys
 import os
 import datetime
+import logging
 
 
 def run():
@@ -16,68 +17,69 @@ def run():
         user_input = user_input.split()
         user_command = user_input.pop(0)
 
-        shell = open('shell.log.txt', 'a')
+        logging.basicConfig(level=logging.INFO, filename="shell.log", filemode="w",
+                            format="%(asctime)s - %(levelname)s - %(message)s")
 
         match user_command:
             case "help":
                 print(commands)
-                print(f"[{str(datetime.datetime.now())[:-7]}] {user_command} {user_input}", file=shell)
+                logging.info(f"{user_command} {user_input}")
 
             case "exit":
-                print(f"[{str(datetime.datetime.now())[:-7]}] {user_command} {user_input}", file=shell)
+                logging.info(f"{user_command} {user_input}")
                 break
 
             case "ls":
                 ans = EasyPart.ls(abs_path, user_input)
                 if ans == None:
-                    print(f"[{str(datetime.datetime.now())[:-7]}] {user_command} {user_input}", file=shell)
+                    logging.info(f"{user_command} {user_input}")
                 else:
                     print(ans)
-                    print(f"[{str(datetime.datetime.now())[:-7]}] {ans}", file=shell)
+                    logging.error(ans)
 
             case "cd":
                 ans, abs_path = EasyPart.cd(abs_path, user_input)
                 if ans == None:
-                    print(f"[{str(datetime.datetime.now())[:-7]}] {user_command} {user_input}", file=shell)
+                    logging.info(f"{user_command} {user_input}")
                 else:
                     print(ans)
-                    print(f"[{str(datetime.datetime.now())[:-7]}] {ans}", file=shell)
+                    logging.error(ans)
 
             case "cat":
                 ans = EasyPart.cat(abs_path, user_input)
                 if ans == None:
-                    print(f"[{str(datetime.datetime.now())[:-7]}] {user_command} {user_input}", file=shell)
+                    logging.info(f"{user_command} {user_input}")
                 else:
                     print(ans)
-                    print(f"[{str(datetime.datetime.now())[:-7]}] {ans}", file=shell)
+                    logging.error(ans)
 
             case 'cp':
                 ans = EasyPart.cp(abs_path, user_input)
                 if ans == None:
-                    print(f"[{str(datetime.datetime.now())[:-7]}] {user_command} {user_input}", file=shell)
+                    logging.info(f"{user_command} {user_input}")
                 else:
                     print(ans)
-                    print(f"[{str(datetime.datetime.now())[:-7]}] {ans}", file=shell)
+                    logging.error(ans)
 
             case 'mv':
                 ans = EasyPart.mv(abs_path, user_input)
                 if ans == None:
-                    print(f"[{str(datetime.datetime.now())[:-7]}] {user_command} {user_input}", file=shell)
+                    logging.info(f"{user_command} {user_input}")
                 else:
                     print(ans)
-                    print(f"[{str(datetime.datetime.now())[:-7]}] {ans}", file=shell)
+                    logging.error(ans)
 
             case 'rm':
                 ans = EasyPart.rm(abs_path, user_input)
                 if ans == None:
-                    print(f"[{str(datetime.datetime.now())[:-7]}] {user_command} {user_input}", file=shell)
+                    logging.info(f"{user_command} {user_input}")
                 else:
                     print(ans)
-                    print(f"[{str(datetime.datetime.now())[:-7]}] {ans}", file=shell)
+                    logging.error(ans)
 
             case _:
                 print("ERROR: Unknown command")
-                print(f"[{str(datetime.datetime.now())[:-7]}] ERROR: Unknown command", file=shell)
+                logging.error(f"ERROR: Unknown command")
 
 
         abs_path = os.path.normpath(abs_path)
