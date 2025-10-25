@@ -2,7 +2,6 @@ import src.main as main
 import EasyPart
 import sys
 import os
-import datetime
 import logging
 
 
