@@ -1,4 +1,4 @@
-import zipfile
+import src.main as main
 import tarfile
 import shutil
 
@@ -30,3 +30,32 @@ def zip(abs_path, user_input):
         return "ERROR: Wrong number of arguments"
     except:
         return "ERROR: Unexpected error"
+
+
+def unzip(abs_path, user_input):
+    try:
+        user_input = ' '.join(user_input)
+
+        file_path = user_input if user_input[1:2] == ':' else abs_path + '\\' + user_input
+
+        if file_path.endswith('.zip') == 0:
+            file_path = file_path + '.zip'
+
+        shutil.unpack_archive(file_path)
+        return None
+
+    except (shutil.Error):
+        return "ERROR: Shutil error"
+    except (shutil.ReadError):
+        return "ERROR: It is not zip file"
+    except (PermissionError):
+        return "ERROR: Permission error"
+    except (FileNotFoundError):
+        return "ERROR: File not found"
+    except (ValueError):
+        return "ERROR: Wrong number of arguments"
+    except (IndexError):
+        return "ERROR: Wrong number of arguments"
+
+if __name__ == "__main__":
+    main.main()

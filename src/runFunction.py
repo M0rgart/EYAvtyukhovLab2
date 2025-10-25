@@ -7,7 +7,7 @@ import logging
 
 def run():
     abs_path = os.path.abspath(__file__)[:-19]
-    commands = {'exit', 'help', 'ls', 'cd', 'cat', 'cp', 'mv', 'rm'}
+    commands = {'exit', 'help', 'ls', 'cd', 'cat', 'cp', 'mv', 'rm', 'zip', 'unzip'}
 
     print(abs_path+'\\ ', end='')
 
@@ -81,6 +81,14 @@ def run():
 
             case 'zip':
                 ans = zip_tar.zip(abs_path, user_input)
+                if ans == None:
+                    logging.info(f"{user_command} {user_input}")
+                else:
+                    print(ans)
+                    logging.error(ans)
+
+            case 'unzip':
+                ans = zip_tar.unzip(abs_path, user_input)
                 if ans == None:
                     logging.info(f"{user_command} {user_input}")
                 else:
