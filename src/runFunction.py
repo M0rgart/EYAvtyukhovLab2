@@ -105,6 +105,19 @@ def run():
             new_his_file.write(f"{user_command} {' '.join(user_input)}\n")
             new_his_file.close()
 
+            if user_command in ['mv', 'rm', 'cp']:
+                undo_his_file = open('undo_his.history', 'r', encoding='utf-8')
+                lines = [line[:-1] for line in undo_his_file.readlines()]
+                undo_his_file.close()
+                new_undo_his_file = open('undo_his.history', 'w', encoding='utf-8')
+
+                if len(lines) >= 3:
+                    lines = lines[1:3]
+                for line in lines:
+                    new_undo_his_file.write(line + '\n')
+                new_undo_his_file.write(f"{user_command} {' '.join(user_input)}\n")
+                new_undo_his_file.close()
+
         else:
             print(ans)
             logging.error(ans)

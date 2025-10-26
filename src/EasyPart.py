@@ -1,6 +1,8 @@
 import os
 from datetime import datetime
 import shutil
+from time import process_time_ns
+
 import src.main as main
 
 
@@ -150,8 +152,6 @@ def mv(abs_path, user_input):
         return "ERROR: Wrong number of arguments"
     except (os.error):
         return "ERROR: OSError"
-    except:
-        return "ERROR: Unexpected error"
 
 
 def rm(abs_path, user_input):
@@ -163,13 +163,13 @@ def rm(abs_path, user_input):
         file_path = user_input if user_input[1:2] == ':' else abs_path + '\\' + user_input
 
         if operation == None:
-            os.remove(file_path)
+            os.replace(file_path, f'{os.path.abspath(__file__)[:-15]}trash\\{file_path.split('\\')[-1]}')
             return None
         else:
             if operation == '-r':
                 print(f"Delete the {file_path}? y/n")
                 if input() == 'y':
-                    shutil.rmtree(file_path)
+                    os.replace(file_path, f'{os.path.abspath(__file__)[:-15]}trash\\{file_path.split('\\')[-1]}')
                     print(f'{file_path} deleted')
                     return None
                 else:
@@ -178,7 +178,7 @@ def rm(abs_path, user_input):
             else:
                 return "ERROR: Unknown operation"
     except (PermissionError):
-        return "ERROR: Permission rror"
+        return "ERROR: Permission error"
     except (FileNotFoundError):
         return "ERROR: File not found"
     except (ValueError):
@@ -189,8 +189,6 @@ def rm(abs_path, user_input):
         return "ERROR: OSError"
     except (shutil.Error):
         return "ERROR: Shutil error"
-    except:
-        return "ERROR: Unexpected error"
 
 
 if __name__ == "__main__":
