@@ -22,10 +22,11 @@ def run():
         logging.basicConfig(level=logging.INFO, filename="shell.log", filemode="w",
                             format="%(asctime)s - %(levelname)s - %(message)s")
 
+
         match user_command:
             case "help":
                 print(commands)
-                logging.info(f"{user_command} {user_input}")
+                ans = None
 
             case "exit":
                 logging.info(f"{user_command} {user_input}")
@@ -33,71 +34,54 @@ def run():
 
             case "ls":
                 ans = EasyPart.ls(abs_path, user_input)
-                if ans == None:
-                    logging.info(f"{user_command} {user_input}")
-                else:
-                    print(ans)
-                    logging.error(ans)
+
 
             case "cd":
                 ans, abs_path = EasyPart.cd(abs_path, user_input)
-                if ans == None:
-                    logging.info(f"{user_command} {user_input}")
-                else:
-                    print(ans)
-                    logging.error(ans)
+
 
             case "cat":
                 ans = EasyPart.cat(abs_path, user_input)
-                if ans == None:
-                    logging.info(f"{user_command} {user_input}")
-                else:
-                    print(ans)
-                    logging.error(ans)
+
 
             case 'cp':
                 ans = EasyPart.cp(abs_path, user_input)
-                if ans == None:
-                    logging.info(f"{user_command} {user_input}")
-                else:
-                    print(ans)
-                    logging.error(ans)
+
 
             case 'mv':
                 ans = EasyPart.mv(abs_path, user_input)
-                if ans == None:
-                    logging.info(f"{user_command} {user_input}")
-                else:
-                    print(ans)
-                    logging.error(ans)
+
 
             case 'rm':
                 ans = EasyPart.rm(abs_path, user_input)
-                if ans == None:
-                    logging.info(f"{user_command} {user_input}")
-                else:
-                    print(ans)
-                    logging.error(ans)
+
 
             case 'zip':
                 ans = zip_tar.zip(abs_path, user_input)
-                if ans == None:
-                    logging.info(f"{user_command} {user_input}")
-                else:
-                    print(ans)
-                    logging.error(ans)
+
 
             case 'unzip':
                 ans = zip_tar.unzip(abs_path, user_input)
-                if ans == None:
-                    logging.info(f"{user_command} {user_input}")
-                else:
-                    print(ans)
-                    logging.error(ans)
+
+
+            case 'tar':
+                ans = zip_tar.tar(abs_path, user_input)
+
+
+            case 'untar':
+                ans = zip_tar.untar(abs_path, user_input)
+
 
             case _:
                 print("ERROR: Unknown command")
-                logging.error(f"ERROR: Unknown command")
+                ans = (f"ERROR: Unknown command")
+
+
+        if not ans:
+            logging.info(f"{user_command} {user_input}")
+        else:
+            print(ans)
+            logging.error(ans)
 
 
         abs_path = os.path.normpath(abs_path)
