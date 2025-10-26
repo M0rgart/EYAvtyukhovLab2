@@ -1,5 +1,5 @@
 import src.main as main
-import EasyPart, zip_tar
+import EasyPart, zip_tar, grep, history_undo
 import sys
 import os
 import logging
@@ -7,7 +7,8 @@ import logging
 
 def run():
     abs_path = os.path.abspath(__file__)[:-19]
-    commands = {'exit', 'help', 'ls', 'cd', 'cat', 'cp', 'mv', 'rm', 'zip', 'unzip'}
+    commands = {'exit', 'help', 'ls', 'cd', 'cat', 'cp', 'mv', 'rm', 'zip', 'unzip', 'tar', 'untar',
+                'history', 'undo', 'grep'}
 
     print(abs_path+'\\ ', end='')
 
@@ -72,6 +73,18 @@ def run():
                 ans = zip_tar.untar(abs_path, user_input)
 
 
+            case 'grep':
+                ans = grep.grep(abs_path, user_input)
+
+
+            case 'history':
+                ans = history_undo.history()
+
+
+            case 'undo':
+                ans = history_undo.undo()
+
+
             case _:
                 print("ERROR: Unknown command")
                 ans = (f"ERROR: Unknown command")
@@ -79,6 +92,19 @@ def run():
 
         if not ans:
             logging.info(f"{user_command} {user_input}")
+
+            his_file = open('his.history', 'r', encoding='utf-8')
+            lines = [line[:-1] for line in his_file.readlines()]
+            his_file.close()
+            new_his_file = open('his.history', 'w', encoding='utf-8')
+
+            if len(lines) >= 10:
+                lines = lines[1:10]
+            for line in lines:
+                new_his_file.write(line + '\n')
+            new_his_file.write(f"{user_command} {' '.join(user_input)}\n")
+            new_his_file.close()
+
         else:
             print(ans)
             logging.error(ans)
