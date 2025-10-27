@@ -109,7 +109,7 @@ def cp(abs_path, user_input):
         new_path = new_path if new_path[1:2] == ':' else abs_path + '\\' + new_path
 
         if operation == None:
-            shutil.copy2(file_path, new_path)
+            shutil.copy(file_path, new_path)
             return None
         elif operation == '-r':
             shutil.copytree(file_path, new_path, dirs_exist_ok=True)
@@ -162,7 +162,7 @@ def rm(abs_path, user_input):
 
         file_path = user_input if user_input[1:2] == ':' else abs_path + '\\' + user_input
 
-        if operation == None:
+        if operation == None and os.listdir(file_path) == 0:
             os.replace(file_path, f'{os.path.abspath(__file__)[:-15]}trash\\{file_path.split('\\')[-1]}')
             return None
         else:
@@ -176,7 +176,7 @@ def rm(abs_path, user_input):
                     print(f'{file_path} not deleted')
                     return None
             else:
-                return "ERROR: Unknown operation"
+                return "ERROR: Unknown operation or missing '-r'"
     except (PermissionError):
         return "ERROR: Permission error"
     except (FileNotFoundError):

@@ -115,7 +115,7 @@ def run():
                     lines = lines[1:3]
                 for line in lines:
                     new_undo_his_file.write(line + '\n')
-                new_undo_his_file.write(f"{user_command} {' '.join(user_input)}\n")
+                new_undo_his_file.write(f"{abs_path} <:> {user_command} <:> {' '.join(user_input)}\n")
                 new_undo_his_file.close()
 
         else:
