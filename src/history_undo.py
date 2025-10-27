@@ -30,13 +30,15 @@ def undo():
             new_undo_file.close()
             abs_path, undo_command, undo_input = lines[-1].split(' <:> ')
             undo_input = undo_input.replace('\n', '')
+
             match undo_command:
                 case 'rm':
-                    trash_path = f'{os.path.abspath(__file__)[:-15]}trash'
                     operation = undo_input[0:2] if undo_input[0] == '-' else None
                     user_input = undo_input[3:] if operation else undo_input
                     file_path = user_input if user_input[1:2] == ':' else abs_path + '\\' + user_input
-                    os.replace(f'{os.path.abspath(__file__)[:-19]}trash\\{file_path.split('\\')[-1]}', file_path)
+                    trash_path = f'{os.path.abspath(__file__)[:-19]}trash\\{file_path.split('\\')[-1]}'
+
+                    os.replace(trash_path, file_path)
 
                 case 'mv':
                     if '"' in undo_input:
