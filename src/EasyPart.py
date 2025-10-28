@@ -48,8 +48,8 @@ def ls(abs_path, user_input):
         return "ERROR: File not found"
     except (OSError):
         return "ERROR: OS error (try 'ls C:\\')"
-    except Exception:
-        return f"ERROR: {Exception}"
+    except Exception as e:
+        return f"ERROR: {e}"
 
 
 def cd(abs_path, user_input):
@@ -90,8 +90,8 @@ def cat(abs_path, user_input):
         return "ERROR: Permission error"
     except (UnicodeDecodeError):
         return "ERROR: Unicode decode error"
-    except Exception:
-        return f"ERROR: {Exception}"
+    except Exception as e:
+        return f"ERROR: {e}"
 
 
 def cp(abs_path, user_input):
@@ -124,8 +124,8 @@ def cp(abs_path, user_input):
         return "ERROR: Wrong number of arguments"
     except (shutil.Error):
         return "ERROR: Shutil error"
-    except Exception:
-        return f"ERROR: {Exception}"
+    except Exception as e:
+        return f"ERROR: {e}"
 
 
 def mv(abs_path, user_input):
@@ -154,8 +154,8 @@ def mv(abs_path, user_input):
         return "ERROR: Wrong number of arguments"
     except (os.error):
         return "ERROR: OSError"
-    except Exception:
-        return f"ERROR: {Exception}"
+    except Exception as e:
+        return f"ERROR: {e}"
 
 
 def rm(abs_path, user_input):
@@ -165,8 +165,7 @@ def rm(abs_path, user_input):
         user_input = user_input[3:] if operation else user_input
 
         file_path = user_input if user_input[1:2] == ':' else abs_path + '\\' + user_input
-
-        if operation == None and os.listdir(file_path) == 0:
+        if operation == None and os.path.isfile(file_path) == 1:
             os.replace(file_path, f'{os.path.abspath(__file__)[:-15]}trash\\{file_path.split('\\')[-1]}')
             return None
         else:
@@ -193,8 +192,8 @@ def rm(abs_path, user_input):
         return "ERROR: OSError"
     except (shutil.Error):
         return "ERROR: Shutil error"
-    except Exception:
-        return f"ERROR: {Exception}"
+    except Exception as e:
+        return f"ERROR: {e}"
 
 
 if __name__ == "__main__":

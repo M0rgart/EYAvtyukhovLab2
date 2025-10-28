@@ -13,8 +13,8 @@ def find_in_file(path, pattern, regis):
         return 'ERROR: PermissionError'
     except FileNotFoundError:
         return 'ERROR: FileNotFoundError'
-    except Exception:
-        return f"ERROR: {Exception}"
+    except Exception as e:
+        return f"ERROR: {e}"
 
 
 def grep(abs_path, user_input):
@@ -37,8 +37,8 @@ def grep(abs_path, user_input):
                 return "ERROR: missing -r"
         else:
             return f"ERROR: {path} is not a file or directory"
-    except Exception:
-        return f"ERROR: {Exception}"
+    except Exception as e:
+        return f"ERROR: {e}"
 
 
 if __name__ == "__main__":

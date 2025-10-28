@@ -11,8 +11,8 @@ def history():
             print(f"{num_line + 1}: {lines[num_line]}")
         his_file.close()
         return None
-    except:
-        return "ERROR: Unknown error"
+    except Exception as e:
+        return f"ERROR: {e}"
 
 
 def undo():
@@ -68,8 +68,8 @@ def undo():
 
                 case _:
                     return "ERROR: Unknown command  in undo file"
-    except Exception:
-        return f"ERROR: {Exception}"
+    except Exception as e:
+        return f"ERROR: {e}"
 
 
 if __name__ == "__main__":

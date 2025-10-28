@@ -1,14 +1,27 @@
 import src.main as main
 import EasyPart, zip_tar, grep, history_undo
-import sys
-import os
+import sys, os, shutil
 import logging
 
 
 def run():
+    with open('undo_his.history', 'w', encoding='utf-8') as f:
+        f.close()
     abs_path = os.path.abspath(__file__)[:-19]
     commands = {'exit', 'help', 'ls', 'cd', 'cat', 'cp', 'mv', 'rm', 'zip', 'unzip', 'tar', 'untar',
                 'history', 'undo', 'grep'}
+
+    trash = abs_path+'\\trash'
+
+    for file_name in os.listdir(trash):
+        path = os.path.join(trash, file_name)
+        try:
+            if os.path.isfile(path) or os.path.islink(path):
+                os.unlink(path)
+            elif os.path.isdir(path):
+                shutil.rmtree(path)
+        except Exception:
+            print(f'Failed to delete {file_name}. Reason: {Exception}')
 
     print(abs_path+'\\ ', end='')
 
@@ -111,7 +124,14 @@ def run():
                 new_undo_his_file = open('undo_his.history', 'w', encoding='utf-8')
 
                 if len(lines) >= 3:
+                    deleted = lines[0:1][0].split(' <:> ')
                     lines = lines[1:3]
+                    if deleted[1] == 'rm':
+                        del_path = trash + '\\' + deleted[2].split('\\')[-1].replace('-r ', '')
+                        if os.path.isfile(del_path):
+                            os.remove(del_path)
+                        else:
+                            shutil.rmtree(del_path)
                 for line in lines:
                     new_undo_his_file.write(line + '\n')
                 new_undo_his_file.write(f"{abs_path} <:> {user_command} <:> {' '.join(user_input)}\n")

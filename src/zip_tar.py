@@ -28,8 +28,8 @@ def zip(abs_path, user_input):
         return "ERROR: Wrong number of arguments"
     except (IndexError):
         return "ERROR: Wrong number of arguments"
-    except:
-        return "ERROR: Unexpected error"
+    except Exception as e:
+        return f"ERROR: {e}"
 
 
 def unzip(abs_path, user_input):
@@ -56,8 +56,8 @@ def unzip(abs_path, user_input):
         return "ERROR: Wrong number of arguments"
     except (IndexError):
         return "ERROR: Wrong number of arguments"
-    except:
-        return "ERROR: Unexpected error"
+    except Exception as e:
+        return f"ERROR: {e}"
 
 
 def tar(abs_path, user_input):
@@ -84,8 +84,8 @@ def tar(abs_path, user_input):
         return "ERROR: Wrong number of arguments"
     except (IndexError):
         return "ERROR: Wrong number of arguments"
-    except:
-        return "ERROR: Unexpected error"
+    except Exception as e:
+        return f"ERROR: {e}"
 
 
 def untar(abs_path, user_input):
@@ -112,8 +112,8 @@ def untar(abs_path, user_input):
         return "ERROR: Wrong number of arguments"
     except (IndexError):
         return "ERROR: Wrong number of arguments"
-    except:
-        return "ERROR: Unexpected error"
+    except Exception as e:
+        return f"ERROR: {e}"
 
 if __name__ == "__main__":
     main.main()
