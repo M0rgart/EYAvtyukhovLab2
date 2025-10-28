@@ -48,8 +48,8 @@ def ls(abs_path, user_input):
         return "ERROR: File not found"
     except (OSError):
         return "ERROR: OS error (try 'ls C:\\')"
-    except:
-        return "ERROR: Unexpected error"
+    except Exception:
+        return f"ERROR: {Exception}"
 
 
 def cd(abs_path, user_input):
@@ -90,8 +90,8 @@ def cat(abs_path, user_input):
         return "ERROR: Permission error"
     except (UnicodeDecodeError):
         return "ERROR: Unicode decode error"
-    except:
-        return "ERROR: Unexpected error"
+    except Exception:
+        return f"ERROR: {Exception}"
 
 
 def cp(abs_path, user_input):
@@ -124,6 +124,8 @@ def cp(abs_path, user_input):
         return "ERROR: Wrong number of arguments"
     except (shutil.Error):
         return "ERROR: Shutil error"
+    except Exception:
+        return f"ERROR: {Exception}"
 
 
 def mv(abs_path, user_input):
@@ -152,6 +154,8 @@ def mv(abs_path, user_input):
         return "ERROR: Wrong number of arguments"
     except (os.error):
         return "ERROR: OSError"
+    except Exception:
+        return f"ERROR: {Exception}"
 
 
 def rm(abs_path, user_input):
@@ -189,6 +193,8 @@ def rm(abs_path, user_input):
         return "ERROR: OSError"
     except (shutil.Error):
         return "ERROR: Shutil error"
+    except Exception:
+        return f"ERROR: {Exception}"
 
 
 if __name__ == "__main__":

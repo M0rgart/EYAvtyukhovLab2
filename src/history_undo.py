@@ -68,8 +68,8 @@ def undo():
 
                 case _:
                     return "ERROR: Unknown command  in undo file"
-    except:
-        return "ERROR: Unknown error"
+    except Exception:
+        return f"ERROR: {Exception}"
 
 
 if __name__ == "__main__":

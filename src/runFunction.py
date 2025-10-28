@@ -86,7 +86,6 @@ def run():
 
 
             case _:
-                print("ERROR: Unknown command")
                 ans = (f"ERROR: Unknown command")
 
 
