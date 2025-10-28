@@ -5,6 +5,7 @@ import shutil
 
 
 def zip(abs_path, user_input):
+    '''Создает из файла или каталога zip-архив'''
     try:
         user_input = ' '.join(user_input)
 
@@ -33,6 +34,7 @@ def zip(abs_path, user_input):
 
 
 def unzip(abs_path, user_input):
+    '''Распаковывает zip-архив'''
     try:
         user_input = ' '.join(user_input)
 
@@ -61,6 +63,7 @@ def unzip(abs_path, user_input):
 
 
 def tar(abs_path, user_input):
+    '''Создает из файла или каталога tar-архив'''
     try:
         user_input = ' '.join(user_input)
 
@@ -89,6 +92,7 @@ def tar(abs_path, user_input):
 
 
 def untar(abs_path, user_input):
+    '''Распаковывает tar-архив'''
     try:
         user_input = ' '.join(user_input)
 

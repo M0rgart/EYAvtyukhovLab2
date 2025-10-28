@@ -4,6 +4,8 @@ import src.main as main
 
 
 def find_in_file(path, pattern, regis):
+    '''Функция для поиска в файле строк, которые совпадает с pattern. Срауз выводит название этого файла, номер строки
+    и саму строку, если обнаружит совпадение'''
     try:
         f = open(path, 'r', encoding='utf-8')
         for line_num, line in enumerate(f, 1):
@@ -18,14 +20,19 @@ def find_in_file(path, pattern, regis):
 
 
 def grep(abs_path, user_input):
+    '''Ищет все строк в файлах, совпадающие с указанным пользователем patten (всегда в кавычках).
+    Поддерживает -r - рекурсивный поиск в каталогах и подкаталогах и -i - поиск без учета регистра'''
     try:
+        # Определяет: рекурсивный поиск или нет \ учитывать регистр или нет
         recurs = True if '-r' in user_input else False
         regis = True if '-i' in user_input else False
 
+        # Выделение патерна и абсолютного пути
         pattern = user_input[-2][1:-1]
         path = user_input[-1]
         path = path if path[1:2] == ':' else abs_path + '\\' + path
 
+        # Одиночный вызов функции для файла и многократный для каталогов (для всех файлов в нем и в его подкаталогах)
         if os.path.isfile(path):
             find_in_file(path, pattern, regis)
         elif os.path.isdir(path):

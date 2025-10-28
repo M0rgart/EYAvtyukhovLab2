@@ -4,6 +4,7 @@ import shutil
 
 
 def history():
+    '''Выводит содержимое файла his.history = последние 10 введеных пользователем команд, которые завершились успешно'''
     try:
         his_file = open('his.history', 'r', encoding='utf-8')
         lines = [line[:-1] for line in his_file.readlines()]
@@ -16,11 +17,15 @@ def history():
 
 
 def undo():
+    '''Отменяет действие команд: rm, mv и cp. Для rm: восстанавливает файл, перемещая его из trash.
+    Для mv - перемщает его обратно. Для cp - удаляет созданную копию'''
     try:
+        #читает файл undo_his.history
         undo_file = open('undo_his.history', 'r', encoding='utf-8')
         lines = [line for line in undo_file.readlines()]
         undo_file.close()
 
+        # Создается undo_input = вводу пользователя, который отменяется в данный момент.
         if len(lines) == 0:
             return 'ERROR: History of the undo is empty'
         else:
@@ -31,8 +36,10 @@ def undo():
             abs_path, undo_command, undo_input = lines[-1].split(' <:> ')
             undo_input = undo_input.replace('\n', '')
 
+            # для каждой команды вызываются разные действия (указаны в docsrting)
             match undo_command:
                 case 'rm':
+                    # проверяется оператор, файл \ директория возвращается на свое место из каталога trash
                     operation = undo_input[0:2] if undo_input[0] == '-' else None
                     user_input = undo_input[3:] if operation else undo_input
                     file_path = user_input if user_input[1:2] == ':' else abs_path + '\\' + user_input
@@ -41,6 +48,7 @@ def undo():
                     os.replace(trash_path, file_path)
 
                 case 'mv':
+                    # файл \ директория возвращается на свое место
                     if '"' in undo_input:
                         file_path, new_path = undo_input.replace('" ', '"').split('"')[1:]
                     else:
@@ -51,6 +59,7 @@ def undo():
                     os.replace(new_path, file_path)
 
                 case 'cp':
+                    # проверяеттся опреатор, удаляется созданная копия файла или директории
                     operation = undo_input[0:2] if undo_input[0] == '-' else None
                     user_input = undo_input[3:] if operation else undo_input
 

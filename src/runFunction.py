@@ -5,14 +5,22 @@ import logging
 
 
 def run():
+    '''Основная функция. При ее вызове:
+    1) Очищается история undo и директория trash
+    2) Запускается непрерывный ввод со стороны пользователя (sys.stdin)
+    3) Из введеных данных выделяется команда, затем через match вызывается соответствующая функция
+    4) Если функция возвращет None => она сделала все павильно. Заполняется история, логи, история undo если
+    команда rm, mv или cp. Иначе функции возвращают ошибку, которая записывается в логи.
+    5) В конце выводит абсолютный путь в котором сейчас находится пользователь'''
     with open('undo_his.history', 'w', encoding='utf-8') as f:
         f.close()
     abs_path = os.path.abspath(__file__)[:-19]
     commands = {'exit', 'help', 'ls', 'cd', 'cat', 'cp', 'mv', 'rm', 'zip', 'unzip', 'tar', 'untar',
                 'history', 'undo', 'grep'}
 
-    trash = abs_path+'\\trash'
+    trash = abs_path+'\\trash' #абсолютный путь к директории\мусорки
 
+    #Удаление всех файлов в каталоге trash
     for file_name in os.listdir(trash):
         path = os.path.join(trash, file_name)
         try:
@@ -25,18 +33,20 @@ def run():
 
     print(abs_path+'\\ ', end='')
 
-
+    #Непрерывный ввод
     for user_input in sys.stdin:
         if ' .\n' == user_input[-3:]:
             user_input = user_input[:-2] + abs_path
 
+        #Разделение ввода на команду и переменные
         user_input = user_input.split()
         user_command = user_input.pop(0)
 
+        #Логи
         logging.basicConfig(level=logging.INFO, filename="shell.log", filemode="w",
                             format="%(asctime)s - %(levelname)s - %(message)s")
 
-
+        #Вызов функций соответствующих введеным пользователеи команд
         match user_command:
             case "help":
                 print(commands)
@@ -101,11 +111,11 @@ def run():
             case _:
                 ans = (f"ERROR: Unknown command")
 
-
+        #Если функция завершилась успешно
         if not ans:
-            logging.info(f"{user_command} {user_input}")
+            logging.info(f"{user_command} {user_input}") # запись в логи
 
-            his_file = open('his.history', 'r', encoding='utf-8')
+            his_file = open('his.history', 'r', encoding='utf-8') # запись в историю
             lines = [line[:-1] for line in his_file.readlines()]
             his_file.close()
             new_his_file = open('his.history', 'w', encoding='utf-8')
@@ -117,7 +127,7 @@ def run():
             new_his_file.write(f"{user_command} {' '.join(user_input)}\n")
             new_his_file.close()
 
-            if user_command in ['mv', 'rm', 'cp']:
+            if user_command in ['mv', 'rm', 'cp']: # запись в историю undo
                 undo_his_file = open('undo_his.history', 'r', encoding='utf-8')
                 lines = [line[:-1] for line in undo_his_file.readlines()]
                 undo_his_file.close()
@@ -137,11 +147,12 @@ def run():
                 new_undo_his_file.write(f"{abs_path} <:> {user_command} <:> {' '.join(user_input)}\n")
                 new_undo_his_file.close()
 
+        # Функция завершилась с ошибкой => вывод пользователю и запись в логи с уровнем ERROR
         else:
             print(ans)
             logging.error(ans)
 
-
+        # нормализация и вывод абсолютного пути директории, в которой находится пользователь
         abs_path = os.path.normpath(abs_path)
         print(abs_path, end=' ')
 
