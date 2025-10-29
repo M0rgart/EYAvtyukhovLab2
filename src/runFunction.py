@@ -1,5 +1,5 @@
 import src.main as main
-import EasyPart, zip_tar, grep, history_undo
+import EasyPart, zip_tar, grep, history_undo, help
 import sys, os, shutil
 import logging
 
@@ -15,8 +15,6 @@ def run():
     with open('undo_his.history', 'w', encoding='utf-8') as f:
         f.close()
     abs_path = os.path.abspath(__file__)[:-19]
-    commands = {'exit', 'help', 'ls', 'cd', 'cat', 'cp', 'mv', 'rm', 'zip', 'unzip', 'tar', 'untar',
-                'history', 'undo', 'grep'}
 
     trash = abs_path+'\\trash' #абсолютный путь к директории\мусорки
 
@@ -37,6 +35,7 @@ def run():
     for user_input in sys.stdin:
         if ' .\n' == user_input[-3:]:
             user_input = user_input[:-2] + abs_path
+            print(user_input)
 
         #Разделение ввода на команду и переменные
         user_input = user_input.split()
@@ -49,7 +48,7 @@ def run():
         #Вызов функций соответствующих введеным пользователеи команд
         match user_command:
             case "help":
-                print(commands)
+                help.help(user_input)
                 ans = None
 
             case "exit":
