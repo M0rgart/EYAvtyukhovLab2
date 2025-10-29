@@ -1,5 +1,11 @@
+from sqlalchemy.cyextension.immutabledict import immutabledict
+
 import src.main as main
-import EasyPart, zip_tar, grep, history_undo, help
+import src.EasyPart as EasyPart
+import src.zip_tar as zip_tar
+import src.grep as grep
+import src.history_undo as history_undo
+import src.help as help
 import sys, os, shutil
 import logging
 

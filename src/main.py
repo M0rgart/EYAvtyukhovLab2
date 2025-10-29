@@ -1,4 +1,4 @@
-import runFunction
+import src.runFunction as runFunction
 
 
 def main() -> None:

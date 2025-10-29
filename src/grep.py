@@ -12,9 +12,9 @@ def find_in_file(path, pattern, regis):
             if re.search(pattern, line, re.IGNORECASE) if regis else re.search(pattern, line):
                 print(f'Name: {path.split('\\')[-1]:15} Number of line: {line_num:5} Line: {line.replace("\n", "")}')
     except PermissionError:
-        return 'ERROR: PermissionError'
+        return 'ERROR: Permission error'
     except FileNotFoundError:
-        return 'ERROR: FileNotFoundError'
+        return 'ERROR: File not found'
     except Exception as e:
         return f"ERROR: {e}"
 
