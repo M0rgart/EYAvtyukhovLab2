@@ -74,7 +74,7 @@ def cd(abs_path, user_input):
     if os.path.isdir(abs_path):
         return None, abs_path + '\\'
     elif os.path.isfile(abs_path):
-        return "ERROR: it is not directory", abs_path
+        return "ERROR: it is not directory", old_path
     else:
         return "ERROR: File or directory does not exist", old_path
 
@@ -90,7 +90,7 @@ def cat(abs_path, user_input):
             abs_path = abs_path + "\\" + user_input
         # Открывает файл по абсолютному пути, читает его построчно
         file = open(abs_path, 'r', encoding='utf-8')
-        lines = [line[:-1] for line in file.readlines()]
+        lines = [line.replace('\n', '') for line in file.readlines()]
         for num_line in range(len(lines)):
             print(f"{num_line+1}: {lines[num_line]}")
         file.close()
@@ -189,6 +189,10 @@ def rm(abs_path, user_input):
         if operation == None and os.path.isfile(file_path) == 1:
             os.replace(file_path, f'{os.path.abspath(__file__)[:-15]}trash\\{file_path.split('\\')[-1]}')
             return None
+        elif operation == None and os.path.isdir(file_path) == 1:
+            return "ERROR: Unknown operation or missing '-r'"
+        elif operation == None:
+            return "ERROR: File not found"
         else:
             if operation == '-r':
                 print(f"Delete the {file_path}? y/n")
@@ -199,8 +203,10 @@ def rm(abs_path, user_input):
                 else:
                     print(f'{file_path} not deleted')
                     return None
-            else:
+            elif operation != '-r':
                 return "ERROR: Unknown operation or missing '-r'"
+            else:
+                return "ERROR: File not found"
     except (PermissionError):
         return "ERROR: Permission error"
     except (FileNotFoundError):
