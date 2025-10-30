@@ -2,6 +2,8 @@ import src.main as main
 
 
 def help(user_input):
+    '''Выводит список команд. Может вывести подробную информацию
+    по одной из них.'''
     commands = {'exit', 'help', 'ls', 'cd', 'cat', 'cp', 'mv', 'rm', 'zip', 'unzip', 'tar', 'untar',
                 'history', 'undo', 'grep'}
     if user_input == []:

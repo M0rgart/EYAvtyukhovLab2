@@ -10,7 +10,8 @@ def find_in_file(path, pattern, regis):
         f = open(path, 'r', encoding='utf-8')
         for line_num, line in enumerate(f, 1):
             if re.search(pattern, line, re.IGNORECASE) if regis else re.search(pattern, line):
-                print(f'Name: {path.split('\\')[-1]:15} Number of line: {line_num:5} Line: {line.replace("\n", "")}')
+                print(f'Name: {path.split('\\')[-1]:15} Number of line: {line_num:5} Line: '
+                      f'{line.replace("\n", "")}')
     except PermissionError:
         return 'ERROR: Permission error'
     except FileNotFoundError:
@@ -44,6 +45,7 @@ def grep(abs_path, user_input):
                 return "ERROR: missing -r"
         else:
             return f"ERROR: {path} is not a file or directory"
+        return None
     except Exception as e:
         return f"ERROR: {e}"
 
