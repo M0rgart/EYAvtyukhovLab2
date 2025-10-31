@@ -1,6 +1,6 @@
-import unittest, os, sys, shutil, tempfile
+import unittest, os, shutil, tempfile
 from io import StringIO
-from unittest.mock import patch, mock_open
+from unittest.mock import patch
 from src.grep import grep, find_in_file
 
 
@@ -69,7 +69,7 @@ class TestFindInFile(unittest.TestCase):
 
     @patch('sys.stdout', new_callable=StringIO)
     def test_find_in_file_empty(self, mock_stdout):
-        with open(self.file1, 'w', encoding='utf-8') as f:
+        with open(self.file1, 'w', encoding='utf-8'):
             pass
         find_in_file(self.file1, "goose", False)
         self.assertEqual(mock_stdout.getvalue(), "")

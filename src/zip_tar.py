@@ -1,5 +1,4 @@
 import src.main as main
-import tarfile
 import shutil
 
 
@@ -36,6 +35,8 @@ def zip(abs_path, user_input):
 def unzip(abs_path, user_input):
     '''Распаковывает zip-архив'''
     try:
+        if user_input == []:
+            return "ERROR: Wrong number of arguments"
         user_input = ' '.join(user_input)
 
         file_path = user_input if user_input[1:2] == ':' else abs_path + '\\' + user_input
@@ -94,6 +95,8 @@ def tar(abs_path, user_input):
 def untar(abs_path, user_input):
     '''Распаковывает tar-архив'''
     try:
+        if user_input == []:
+            return "ERROR: Wrong number of arguments"
         user_input = ' '.join(user_input)
 
         file_path = user_input if user_input[1:2] == ':' else abs_path + '\\' + user_input
