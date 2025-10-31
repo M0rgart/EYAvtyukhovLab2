@@ -155,3 +155,6 @@ class TestGrep(unittest.TestCase):
     def test_grep_path_not_found(self):
         res = grep(self.dir, ['"goose"', 'doubleGoose'])
         self.assertEqual(res, f"ERROR: {self.dir}\\doubleGoose is not a file or directory")
+
+if __name__ == '__main__':
+    unittest.main()

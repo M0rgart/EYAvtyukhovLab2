@@ -191,3 +191,6 @@ class TestTar(unittest.TestCase):
     def test_untar_empty_input(self):
         res = zip_tar.untar(self.abs_path, [])
         self.assertEqual(res, "ERROR: Wrong number of arguments")
+
+if __name__ == '__main__':
+    unittest.main()

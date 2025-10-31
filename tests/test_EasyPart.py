@@ -322,3 +322,6 @@ class TestEasyPartFunctions(unittest.TestCase):
     def test_rm_only_r(self):
         rs = EasyPart.rm(self.abs_path, ['-r'])
         self.assertEqual(rs, 'ERROR: OSError')
+
+if __name__ == '__main__':
+    unittest.main()
