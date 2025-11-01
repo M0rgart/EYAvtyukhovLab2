@@ -56,14 +56,14 @@ class TestFindInFile(unittest.TestCase):
         self.assertEqual(mock_stdout.getvalue(), check)
 
     @patch('sys.stdout', new_callable=StringIO)
-    def test_find_in_file_point(self, mock_stdout):
+    def test_find_in_file_last_symbol(self, mock_stdout):
         with open(self.file1, 'w', encoding='utf-8') as f:
             f.write("АбВ\nгУсь.\nА.!123\nqweАrty.")
 
-        find_in_file(self.file1, "\.$", True)
+        find_in_file(self.file1, "В|3$", True)
         check = (
-            'Name: file1.txt       Number of line:     2 Line: гУсь.\n'
-            'Name: file1.txt       Number of line:     4 Line: qweАrty.\n'
+            'Name: file1.txt       Number of line:     1 Line: АбВ\n'
+            'Name: file1.txt       Number of line:     3 Line: А.!123\n'
         )
         self.assertEqual(mock_stdout.getvalue(), check)
 
